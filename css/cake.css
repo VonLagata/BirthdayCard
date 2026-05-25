@@ -1,0 +1,820 @@
+/* =========================================
+   CAKE SECTION + PULL PAPER STYLES
+   ========================================= */
+
+/* ---- SPACER between card and cake ---- */
+.cake-spacer {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
+}
+.cake-spacer-hint {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.1em;
+  animation: hintPulse 2.5s ease-in-out infinite;
+  text-align: center;
+}
+.cake-spacer-hint span {
+  display: block;
+  font-size: 1.5rem;
+  margin-top: 6px;
+  animation: bounceDown 1.2s ease-in-out infinite;
+}
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 0.7; }
+}
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+
+/* ========== CAKE SECTION wrapper ========== */
+.cake-section {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---- CAKE SCENE ---- */
+/* This is the anchor. The pull-paper grows upward (absolute) into the spacer above.
+   The cake stays completely still. */
+.cake-scene {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ========== THE CAKE ========== */
+.cake-wrap {
+  position: relative;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Each layer */
+.cake-layer {
+  border-radius: 8px 8px 4px 4px;
+  position: relative;
+  opacity: 0;
+  transform: scaleY(0) translateY(20px);
+  transform-origin: bottom center;
+  transition: none;
+  overflow: visible;
+}
+.cake-layer.layer-revealed {
+  animation: layerPop 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+@keyframes layerPop {
+  0%   { opacity: 0; transform: scaleY(0) translateY(20px); }
+  60%  { opacity: 1; transform: scaleY(1.08) translateY(-4px); }
+  100% { opacity: 1; transform: scaleY(1) translateY(0); }
+}
+
+/* Layer 1 — bottom, widest */
+.cake-layer-1 {
+  width: 240px;
+  height: 54px;
+  background: linear-gradient(180deg, #FF8FAB 0%, #E8304A 40%, #C0183A 100%);
+  box-shadow: 0 6px 18px rgba(232,48,74,0.5), inset 0 3px 0 rgba(255,255,255,0.25);
+  border-radius: 8px 8px 6px 6px;
+}
+.cake-layer-2 {
+  width: 204px;
+  height: 48px;
+  background: linear-gradient(180deg, #FFE98A 0%, #FFD93D 40%, #D4A800 100%);
+  box-shadow: 0 6px 16px rgba(255,217,61,0.4), inset 0 3px 0 rgba(255,255,255,0.3);
+  margin-bottom: -2px;
+}
+.cake-layer-3 {
+  width: 172px;
+  height: 44px;
+  background: linear-gradient(180deg, #FFB3CE 0%, #FF6FA8 40%, #D94080 100%);
+  box-shadow: 0 5px 14px rgba(255,111,168,0.45), inset 0 3px 0 rgba(255,255,255,0.25);
+  margin-bottom: -2px;
+}
+.cake-layer-4 {
+  width: 138px;
+  height: 40px;
+  background: linear-gradient(180deg, #FF8FAB 0%, #E8304A 40%, #C0183A 100%);
+  box-shadow: 0 5px 12px rgba(232,48,74,0.4), inset 0 3px 0 rgba(255,255,255,0.25);
+  margin-bottom: -2px;
+}
+/* Layer 5 — top, smallest */
+.cake-layer-5 {
+  width: 100px;
+  height: 34px;
+  background: linear-gradient(180deg, #FFE98A 0%, #FFD93D 40%, #D4A800 100%);
+  box-shadow: 0 4px 12px rgba(255,217,61,0.4), inset 0 3px 0 rgba(255,255,255,0.3);
+  margin-bottom: -2px;
+}
+
+/* Frosting drips */
+.cake-layer::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 0; right: 0;
+  height: 12px;
+  background: inherit;
+  filter: brightness(1.3);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  clip-path: polygon(
+    0% 100%, 4% 0%, 8% 80%, 12% 10%, 16% 70%, 20% 5%,
+    25% 75%, 30% 0%, 35% 80%, 40% 10%, 45% 70%, 50% 0%,
+    55% 80%, 60% 10%, 65% 75%, 70% 0%, 75% 80%, 80% 5%,
+    85% 70%, 90% 10%, 95% 80%, 100% 0%, 100% 100%
+  );
+}
+
+/* Dots */
+.cake-layer::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.5) 3px, transparent 3px);
+  background-size: 20px 20px;
+  background-repeat: repeat;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* ---- PLATE ---- */
+.cake-plate {
+  width: 270px;
+  height: 18px;
+  background: linear-gradient(180deg, #f0e8d8, #d8c8a8);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.5) inset;
+  opacity: 0;
+  margin-top: 2px;
+  position: relative;
+  z-index: 2;
+}
+.cake-plate.layer-revealed {
+  animation: fadeUp 0.4s ease 0.1s both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== CANDLES ==========
+   .cake-layers-wrap is position:relative.
+   Candles sit in normal flow BEFORE layer-5,
+   so they render on top of it.
+   We use a negative margin to pull them down
+   so they appear to sit ON the top layer surface.
+*/
+.cake-layers-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.candles-row {
+  width: 96px; /* matches layer-5 width */
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  z-index: 20;
+  pointer-events: all;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  /* Pull down so candle bases sit ON top of layer-5 */
+  margin-bottom: -8px;
+  position: relative;
+}
+.candles-row.visible { opacity: 1; }
+
+.candle {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.candle-body {
+  width: 9px;
+  height: 28px;
+  border-radius: 2px 2px 1px 1px;
+  position: relative;
+  transition: transform 0.2s;
+}
+.candle:active .candle-body { transform: scale(0.95); }
+
+.candle:nth-child(1) .candle-body { background: linear-gradient(180deg, #FF6FA8, #C04060); }
+.candle:nth-child(2) .candle-body { background: linear-gradient(180deg, #FFE98A, #D4A800); }
+.candle:nth-child(3) .candle-body { background: linear-gradient(180deg, #FF8FAB, #E8304A); }
+.candle:nth-child(4) .candle-body { background: linear-gradient(180deg, #FFB3CE, #FF6FA8); }
+.candle:nth-child(5) .candle-body { background: linear-gradient(180deg, #FFE98A, #D4A800); }
+
+.candle-body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent, transparent 5px,
+    rgba(255,255,255,0.25) 5px, rgba(255,255,255,0.25) 7px
+  );
+  border-radius: inherit;
+}
+
+.candle-wick {
+  width: 2px;
+  height: 5px;
+  background: #3a2010;
+  border-radius: 1px;
+  position: relative;
+}
+
+.candle-flame {
+  position: relative;
+  margin-bottom: -1px;
+  pointer-events: none;
+}
+.flame-inner {
+  width: 11px;
+  height: 16px;
+  background: radial-gradient(ellipse at 50% 80%, #fff 0%, #FFD93D 30%, #FF6B00 65%, transparent 100%);
+  border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+  filter: blur(0.5px);
+  animation: flameFlicker 0.3s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+  position: relative;
+  z-index: 2;
+}
+.flame-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(255,180,0,0.6) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(4px);
+  animation: glowPulse 0.6s ease-in-out infinite alternate;
+}
+@keyframes flameFlicker {
+  0%   { transform: scaleX(1)    scaleY(1)    rotate(-2deg); }
+  50%  { transform: scaleX(0.9)  scaleY(1.08) rotate(1deg); }
+  100% { transform: scaleX(1.05) scaleY(0.95) rotate(2deg); }
+}
+@keyframes glowPulse {
+  0%   { opacity: 0.5; transform: translate(-50%, -40%) scale(1); }
+  100% { opacity: 0.9; transform: translate(-50%, -40%) scale(1.2); }
+}
+
+.candle.blown .candle-flame { visibility: hidden; }
+.candle.blown .candle-wick::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 10px;
+  background: linear-gradient(to top, rgba(100,80,60,0.8), transparent);
+  border-radius: 1px;
+  animation: smokeRise 1s ease-out forwards;
+}
+@keyframes smokeRise {
+  0%   { opacity: 1; transform: translateX(-50%) scaleX(1); height: 10px; }
+  100% { opacity: 0; transform: translateX(-50%) scaleX(2); height: 20px; }
+}
+
+/* ========== CANDLE HINT ========== */
+.candle-hint {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.75);
+  text-align: center;
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+.candle-hint.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.candle-hint span {
+  display: block;
+  font-size: 1.3rem;
+  animation: tapBounce 0.8s ease-in-out infinite alternate;
+}
+@keyframes tapBounce {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.2); }
+}
+
+/* ========== PULL PAPER ==========
+   Strategy: position:absolute, bottom = top of cake-wrap,
+   grows UPWARD (using bottom anchor + height increase).
+   This means the cake never moves.
+*/
+
+/* .cake-scene must be position:relative so the absolute paper is relative to it */
+.cake-scene {
+  position: relative;
+}
+
+/* Container: sits directly on top of the cake.
+   Grows upward — scroll is above peek tab.
+   JS sets exact bottom offset after measuring cake height. */
+.pull-paper-container {
+  position: absolute;
+  bottom: 260px; /* default; overridden by JS */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.pull-paper-container.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* The peek tab: visible stub above the cake top */
+.paper-peek {
+  width: 70px;
+  height: 28px;
+  background: linear-gradient(180deg, #fffef0, #fff8e0);
+  border-radius: 6px 6px 0 0;
+  box-shadow:
+    0 -6px 16px rgba(0,0,0,0.3),
+    0 0 0 1px rgba(180,140,60,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+  cursor: grab;
+  animation: peekBob 1s ease-in-out infinite alternate;
+}
+@keyframes peekBob {
+  0%   { transform: translateY(0); box-shadow: 0 -6px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(180,140,60,0.4); }
+  100% { transform: translateY(-4px); box-shadow: 0 -10px 22px rgba(0,0,0,0.35), 0 0 0 1px rgba(180,140,60,0.4); }
+}
+.paper-peek:active {
+  cursor: grabbing;
+  animation-play-state: paused;
+}
+.paper-peek::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  background-image: repeating-linear-gradient(
+    180deg, transparent, transparent 5px,
+    rgba(180,140,80,0.18) 5px, rgba(180,140,80,0.18) 6px
+  );
+}
+.peek-line {
+  width: 36px;
+  height: 2px;
+  background: rgba(160,120,60,0.4);
+  border-radius: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+/* The growing scroll — anchored at bottom of container, grows UP */
+.paper-scroll {
+  /* positioned to grow upward from just above peek tab */
+  width: min(310px, 90vw);
+  background: linear-gradient(180deg, #fffef5, #fff8e8 50%, #fff3dc);
+  border-radius: 10px 10px 3px 3px;
+  box-shadow:
+    0 -8px 24px rgba(0,0,0,0.3),
+    0 0 0 1px rgba(180,140,80,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  overflow: hidden;
+  position: relative;
+
+  /* Starts at zero height */
+  height: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  touch-action: none;
+  user-select: none;
+  overflow-y: hidden;
+}
+.paper-scroll.pulling {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* lined paper */
+.paper-scroll::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent, transparent 27px,
+    rgba(180,140,80,0.12) 27px, rgba(180,140,80,0.12) 28px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+.paper-scroll::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 36px;
+  width: 1px;
+  background: rgba(232,48,74,0.2);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- SCROLL TOP CURL ---- */
+.scroll-curl {
+  width: 100%;
+  height: 14px;
+  background: linear-gradient(180deg, #fff0c0, #ffe890);
+  border-radius: 10px 10px 0 0;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.scroll-curl::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.05), transparent);
+}
+
+/* ---- SCROLL HEADER ---- */
+.scroll-header {
+  padding: 12px 18px 10px;
+  text-align: center;
+  border-bottom: 1px dashed rgba(180,140,80,0.3);
+  position: relative;
+  z-index: 1;
+}
+.scroll-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.35rem;
+  color: #3a2010;
+  font-weight: 700;
+}
+.scroll-subtitle {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.62rem;
+  color: rgba(80,50,20,0.5);
+  letter-spacing: 0.14em;
+  margin-top: 2px;
+}
+
+/* ---- PHOTO GRID ---- */
+.scroll-photos {
+  padding: 14px 14px 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-photo-card {
+  background: white;
+  padding: 6px 6px 24px;
+  border-radius: 3px;
+  box-shadow: 0 3px 10px rgba(42,27,46,0.15), 0 1px 3px rgba(42,27,46,0.1);
+  position: relative;
+  opacity: 0;
+  transform: rotate(var(--rot, 0deg)) translateY(20px) scale(0.9);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.3,0.64,1);
+  transition-delay: var(--delay, 0s);
+}
+.scroll-photo-card.photo-visible {
+  opacity: 1;
+  transform: rotate(var(--rot, 0deg)) translateY(0) scale(1);
+}
+/* 5th photo spans full row */
+.scroll-photo-card.wide-photo {
+  grid-column: 1 / -1;
+}
+
+/* Photos: flexible height, no forced aspect-ratio */
+.scroll-photo-img {
+  width: 100%;
+  height: auto;           /* natural height — any ratio works */
+  display: block;
+  border-radius: 1px;
+  filter: contrast(1.03) saturate(1.06);
+  object-fit: cover;
+}
+
+.scroll-photo-label {
+  position: absolute;
+  bottom: 4px;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 0.7rem;
+  color: rgba(42,27,46,0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 4px;
+}
+
+/* tape */
+.scroll-tape {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 30px;
+  height: 11px;
+  background: rgba(255,217,61,0.7);
+  border-radius: 2px;
+  z-index: 3;
+}
+.scroll-tape::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg, transparent, transparent 4px,
+    rgba(255,255,255,0.3) 4px, rgba(255,255,255,0.3) 5px
+  );
+}
+
+/* ---- SCROLL FOOTER ---- */
+.scroll-footer {
+  padding: 10px 18px 18px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.scroll-footer-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.05rem;
+  color: rgba(80,50,20,0.7);
+  line-height: 1.5;
+}
+.scroll-hearts {
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.scroll-hearts span {
+  animation: heartPop 2s ease-in-out infinite alternate;
+}
+.scroll-hearts span:nth-child(1) { animation-delay: 0s; }
+.scroll-hearts span:nth-child(2) { animation-delay: 0.3s; }
+.scroll-hearts span:nth-child(3) { animation-delay: 0.6s; }
+@keyframes heartPop {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.2) translateY(-3px); }
+}
+
+/* ---- NO PHOTO FALLBACK ---- */
+.scroll-photo-card.no-photo .scroll-photo-img { display: none; }
+.scroll-photo-card.no-photo::after {
+  content: '📸';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  background: #f8f0f3;
+  border-radius: 2px;
+  width: 100%;
+  padding: 24px 0;
+}
+
+/* ========== PULL HINT (outside container) ========== */
+#pullHint {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.8);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ========== FIXED PROGRESS PILL ========== */
+.pull-progress-hint {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Dancing Script', cursive;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(8px);
+  padding: 8px 22px;
+  border-radius: 50px;
+  z-index: 9000;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.pull-progress-hint.visible { opacity: 1; }
+
+/* ========== PULL HINT (below cake) ========== */
+.pull-hint-below {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.85);
+  text-align: center;
+  padding: 14px 20px 4px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+  position: relative;
+  z-index: 5;
+  animation: arrowBounce 1s ease-in-out infinite alternate;
+}
+.pull-hint-below.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@keyframes arrowBounce {
+  0%   { letter-spacing: 0; }
+  100% { letter-spacing: 0.02em; }
+}
+
+/* ========== PHOTO LIGHTBOX ========== */
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.photo-lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Dark blurred backdrop */
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 4, 14, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Close button */
+.lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.9);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s, transform 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1;
+}
+.lightbox-close:active {
+  background: rgba(255,255,255,0.22);
+  transform: scale(0.9);
+}
+
+/* The polaroid-style frame */
+.lightbox-frame {
+  position: relative;
+  z-index: 2;
+  background: #fffdf8;
+  padding: 10px 10px 48px;
+  border-radius: 3px;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.7),
+    0 0 0 1px rgba(255,255,255,0.06),
+    inset -1px -1px 0 rgba(0,0,0,0.05);
+  max-width: min(340px, 88vw);
+  width: 100%;
+  transform: scale(0.7) translateY(30px);
+  transition: transform 0.38s cubic-bezier(0.34,1.3,0.64,1);
+}
+.photo-lightbox.open .lightbox-frame {
+  transform: scale(1) translateY(0);
+}
+
+/* slight paper texture on frame */
+.lightbox-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: 3px;
+}
+
+.lightbox-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+  object-fit: contain;
+  filter: contrast(1.03) saturate(1.06);
+}
+
+.lightbox-caption {
+  position: absolute;
+  bottom: 10px;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.1rem;
+  color: #3a2010;
+  opacity: 0.8;
+  padding: 0 10px;
+}
+
+/* Tap-anywhere hint */
+.lightbox-tap-hint {
+  position: relative;
+  z-index: 2;
+  margin-top: 18px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.06em;
+  animation: hintFade 2s ease-in-out infinite alternate;
+}
+@keyframes hintFade {
+  0%   { opacity: 0.35; }
+  100% { opacity: 0.65; }
+}
+
+/* Make photo cards tappable — cursor + press effect */
+.scroll-photo-card.photo-visible {
+  cursor: pointer;
+}
+.scroll-photo-card.photo-visible:active {
+  transform: rotate(var(--rot, 0deg)) scale(0.96) !important;
+  transition: transform 0.12s ease !important;
+}
+
+/* Tiny zoom icon hint on hover/focus */
+.scroll-photo-card.photo-visible::after {
+  content: '🔍';
+  position: absolute;
+  bottom: 26px;
+  right: 6px;
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.scroll-photo-card.photo-visible:hover::after {
+  opacity: 0.6;
+}
