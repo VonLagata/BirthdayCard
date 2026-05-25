@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Happy Birthday 🎂</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- AUDIO -->
+  <audio id="bgMusic" loop preload="auto">
+    <!-- 🎵 REPLACE src WITH YOUR AUDIO FILE PATH e.g. audio/birthday.mp3 -->
+    <source src="audio/music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- CONFETTI CANVAS -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- INTRO PAGE -->
+  <div id="introPage" class="page active">
+
+    <div class="sparkle-bg"></div>
+
+    <div class="hint-text" id="hintText">tap the balloons to pop them 🎈</div>
+
+    <div class="scene" id="scene">
+
+      <!-- BALLOONS (7) -->
+      <div class="balloon-group" id="balloonGroup">
+
+        <div class="balloon-wrapper" id="bw0" style="--i:0">
+          <div class="balloon" id="b0" data-index="0" onclick="popBalloon(0)">
+            <div class="balloon-inner"></div>
+            <div class="balloon-shine"></div>
+            <div class="balloon-knot"></div>
+          </div>
+          <svg class="string" viewBox="0 0 20 120" preserveAspectRatio="none">
+            <path d="M10 0 Q14 40 8 80 Q4 100 10 120" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+
+        <div class="balloon-wrapper" id="bw1" style="--i:1">
+          <div class="balloon" id="b1" data-index="1" onclick="popBalloon(1)">
+            <div class="balloon-inner"></div>
+            <div class="balloon-shine"></div>
+            <div class="balloon-knot"></div>
+          </div>
+          <svg class="string" viewBox="0 0 20 120" preserveAspectRatio="none">
+            <path d="M10 0 Q6 40 12 80 Q16 100 10 120" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+
+        <div class="balloon-wrapper" id="bw2" style="--i:2">
+          <div class="balloon" id="b2" data-index="2" onclick="popBalloon(2)">
+            <div class="balloon-inner"></div>
+            <div class="balloon-shine"></div>
+            <div class="balloon-knot"></div>
+          </div>
+          <svg class="string" viewBox="0 0 20 120" preserveAspectRatio="none">
+            <path d="M10 0 Q15 30 9 70 Q5 95 10 120" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+
+        <div class="balloon-wrapper" id="bw3" style="--i:3">
+          <div class="balloon" id="b3" data-index="3" onclick="popBalloon(3)">
+            <div class="balloon-inner"></div>
+            <div class="balloon-shine"></div>
+            <div class="balloon-knot"></div>
+          </div>
+          <svg class="string" viewBox="0 0 20 120" preserveAspectRatio="none">
+            <path d="M10 0 Q10 40 10 80 Q10 100 10 120" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+
+        <div class="balloon-wrapper" id="bw4" style="--i:4">
+          <div class="balloon" id="b4" data-index="4" onclick="popBalloon(4)">
+            <div class="balloon-inner"></div>
+            <div class="balloon-shine"></div>
+            <div class="balloon-knot"></div>
+          </div>
+          <svg class="string" viewBox="0 0 20 120" preserveAspectRatio="none">
+            <path d="M10 0 Q5 35 11 75 Q15 98 10 120" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+
+        <div class="balloon-wrapper" id="bw5" style="--i:5">
+          <div class="balloon" id="b5" data-index="5" onclick="popBalloon(5)">
+            <div class="balloon-inner"></div>
+            <div class="balloon-shine"></div>
+            <div class="balloon-knot"></div>
+          </div>
+          <svg class="string" viewBox="0 0 20 120" preserveAspectRatio="none">
+            <path d="M10 0 Q16 45 8 75 Q3 98 10 120" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+
+        <div class="balloon-wrapper" id="bw6" style="--i:6">
+          <div class="balloon" id="b6" data-index="6" onclick="popBalloon(6)">
+            <div class="balloon-inner"></div>
+            <div class="balloon-shine"></div>
+            <div class="balloon-knot"></div>
+          </div>
+          <svg class="string" viewBox="0 0 20 120" preserveAspectRatio="none">
+            <path d="M10 0 Q7 38 13 78 Q17 100 10 120" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+
+      </div><!-- end balloon-group -->
+
+      <!-- GIFT BOX -->
+      <div class="gift-box" id="giftBox">
+        <div class="string-anchor" id="stringAnchor"></div>
+        <div class="gift-lid">
+          <div class="gift-lid-face lid-front"></div>
+          <div class="gift-lid-face lid-side"></div>
+          <div class="gift-ribbon-h"></div>
+          <div class="gift-ribbon-v"></div>
+          <div class="gift-bow">
+            <div class="bow-loop bow-l"></div>
+            <div class="bow-loop bow-r"></div>
+            <div class="bow-center"></div>
+          </div>
+        </div>
+        <div class="gift-body">
+          <div class="gift-body-ribbon-h"></div>
+          <div class="gift-body-ribbon-v"></div>
+        </div>
+      </div>
+
+    </div><!-- end scene -->
+
+    <!-- POP COUNTER -->
+    <div class="pop-counter" id="popCounter">
+      <span id="poppedCount">0</span> / 7 popped
+    </div>
+
+  </div><!-- end introPage -->
+
+  <!-- TRANSITION OVERLAY -->
+  <div id="transitionOverlay"></div>
+
+  <script src="js/confetti.js"></script>
+  <script src="js/balloons.js"></script>
+  <script src="js/music.js"></script>
+</body>
+</html>

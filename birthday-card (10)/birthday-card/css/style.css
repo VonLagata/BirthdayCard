@@ -1,0 +1,381 @@
+/* =========================================
+   BIRTHDAY CARD — MAIN STYLES
+   Color theme: Red, Yellow, Pink
+   ========================================= */
+
+:root {
+  --red:     #E8304A;
+  --red-lt:  #FF6B80;
+  --yellow:  #FFD93D;
+  --yellow-lt:#FFE98A;
+  --pink:    #FF6FA8;
+  --pink-lt: #FFB3CE;
+  --cream:   #FFF8F0;
+  --dark:    #2A1B2E;
+  --shadow:  rgba(42,27,46,0.18);
+
+  --font-display: 'Playfair Display', serif;
+  --font-body:    'Lato', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--dark);
+}
+
+/* ---- CONFETTI CANVAS ---- */
+#confettiCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ---- PAGES ---- */
+.page {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.page.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ---- SPARKLE BG (intro) ---- */
+.sparkle-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(255,217,61,0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 90%, rgba(232,48,74,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(255,111,168,0.15) 0%, transparent 70%),
+    linear-gradient(160deg, #1a0a22 0%, #2e0d1a 50%, #0f0a22 100%);
+  z-index: 0;
+}
+.sparkle-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,217,61,0.6) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,111,168,0.5) 1px, transparent 1px);
+  background-size: 120px 120px, 180px 180px, 90px 90px;
+  background-position: 10px 10px, 60px 40px, 30px 70px;
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  0%   { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* ---- HINT TEXT ---- */
+.hint-text {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.6);
+  z-index: 10;
+  animation: fadeInDown 1s ease 1.5s both;
+  white-space: nowrap;
+}
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ---- SCENE ---- */
+.scene {
+  position: relative;
+  width: 320px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  z-index: 5;
+}
+
+/* ---- BALLOON GROUP ---- */
+.balloon-group {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 320px;
+  pointer-events: none;
+}
+
+/* Balloon positions */
+.balloon-wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: all;
+  animation: floatBalloon calc(2.5s + var(--i) * 0.3s) ease-in-out infinite alternate;
+}
+
+/* 7 balloon positions arranged in an arc */
+.balloon-wrapper:nth-child(1) { left:  40px; top:  60px; }
+.balloon-wrapper:nth-child(2) { left:  90px; top:  10px; }
+.balloon-wrapper:nth-child(3) { left: 145px; top: -10px; }
+.balloon-wrapper:nth-child(4) { left: 200px; top:   5px; }
+.balloon-wrapper:nth-child(5) { left: 250px; top:  55px; }
+.balloon-wrapper:nth-child(6) { left:  15px; top: 130px; }
+.balloon-wrapper:nth-child(7) { left: 275px; top: 125px; }
+
+@keyframes floatBalloon {
+  0%   { transform: translateY(0px) rotate(-2deg); }
+  100% { transform: translateY(-12px) rotate(2deg); }
+}
+
+/* ---- BALLOON SHAPE ---- */
+.balloon {
+  position: relative;
+  width: 54px;
+  height: 64px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  animation: enterBalloon 0.7s cubic-bezier(0.34,1.56,0.64,1) calc(var(--i) * 0.12s) both;
+}
+@keyframes enterBalloon {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.balloon:active { transform: scale(0.9); }
+
+/* Balloon colors — cycling */
+.balloon-wrapper:nth-child(1) .balloon-inner { background: radial-gradient(circle at 35% 35%, var(--red-lt), var(--red)); }
+.balloon-wrapper:nth-child(2) .balloon-inner { background: radial-gradient(circle at 35% 35%, var(--yellow-lt), var(--yellow)); }
+.balloon-wrapper:nth-child(3) .balloon-inner { background: radial-gradient(circle at 35% 35%, var(--pink-lt), var(--pink)); }
+.balloon-wrapper:nth-child(4) .balloon-inner { background: radial-gradient(circle at 35% 35%, var(--red-lt), var(--red)); }
+.balloon-wrapper:nth-child(5) .balloon-inner { background: radial-gradient(circle at 35% 35%, var(--yellow-lt), var(--yellow)); }
+.balloon-wrapper:nth-child(6) .balloon-inner { background: radial-gradient(circle at 35% 35%, var(--pink-lt), var(--pink)); }
+.balloon-wrapper:nth-child(7) .balloon-inner { background: radial-gradient(circle at 35% 35%, var(--red-lt), var(--red)); }
+
+.balloon-inner {
+  width: 54px;
+  height: 60px;
+  border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+  position: absolute;
+  top: 0;
+  box-shadow: inset -6px -8px 16px rgba(0,0,0,0.2), 2px 2px 8px var(--shadow);
+}
+
+.balloon-shine {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  width: 14px;
+  height: 20px;
+  background: rgba(255,255,255,0.45);
+  border-radius: 50%;
+  transform: rotate(-30deg);
+  filter: blur(2px);
+}
+
+.balloon-knot {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  border-radius: 50% 50% 40% 40%;
+}
+.balloon-wrapper:nth-child(1) .balloon-knot { background: var(--red); }
+.balloon-wrapper:nth-child(2) .balloon-knot { background: var(--yellow); }
+.balloon-wrapper:nth-child(3) .balloon-knot { background: var(--pink); }
+.balloon-wrapper:nth-child(4) .balloon-knot { background: var(--red); }
+.balloon-wrapper:nth-child(5) .balloon-knot { background: var(--yellow); }
+.balloon-wrapper:nth-child(6) .balloon-knot { background: var(--pink); }
+.balloon-wrapper:nth-child(7) .balloon-knot { background: var(--red); }
+
+/* ---- STRING ---- */
+.string {
+  width: 18px;
+  height: 110px;
+  margin-top: -2px;
+  flex-shrink: 0;
+}
+
+/* ---- GIFT BOX ---- */
+.gift-box {
+  position: relative;
+  width: 130px;
+  margin-bottom: 10px;
+  animation: giftEntrance 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.3s both, giftBob 3s ease-in-out 1.5s infinite alternate;
+  z-index: 6;
+  cursor: default;
+}
+@keyframes giftEntrance {
+  from { transform: scale(0.5) translateY(30px); opacity: 0; }
+  to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+@keyframes giftBob {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-5px); }
+}
+
+.string-anchor {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  z-index: 7;
+}
+
+.gift-lid {
+  position: relative;
+  width: 130px;
+  height: 38px;
+  background: var(--red);
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0 -2px 0 var(--red-lt) inset, 0 4px 12px var(--shadow);
+  overflow: visible;
+}
+.gift-lid-face { display: none; }
+
+.gift-ribbon-h,
+.gift-ribbon-v {
+  position: absolute;
+  background: var(--yellow);
+  border-radius: 2px;
+}
+.gift-ribbon-h {
+  height: 10px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset;
+}
+.gift-ribbon-v {
+  width: 10px;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.gift-bow {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 36px;
+}
+.bow-loop {
+  position: absolute;
+  width: 26px;
+  height: 22px;
+  background: var(--yellow);
+  border-radius: 50% 50% 10% 10% / 60% 60% 40% 40%;
+  top: 0;
+  box-shadow: inset 0 4px 6px rgba(255,255,255,0.3);
+}
+.bow-l { left: 0;  transform: rotate(-30deg); }
+.bow-r { right: 0; transform: rotate(30deg); }
+.bow-center {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--yellow-lt);
+  border-radius: 50%;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.gift-body {
+  position: relative;
+  width: 130px;
+  height: 90px;
+  background: var(--pink);
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.gift-body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 12px,
+    rgba(255,255,255,0.06) 12px,
+    rgba(255,255,255,0.06) 14px
+  );
+}
+.gift-body-ribbon-h {
+  position: absolute;
+  height: 10px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--yellow);
+}
+.gift-body-ribbon-v {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--yellow);
+}
+
+/* ---- POP COUNTER ---- */
+.pop-counter {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.45);
+  z-index: 10;
+  transition: color 0.3s;
+}
+
+/* ---- TRANSITION OVERLAY ---- */
+#transitionOverlay {
+  position: fixed;
+  inset: 0;
+  background: var(--dark);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+#transitionOverlay.fade-in  { opacity: 1; pointer-events: all; }
+#transitionOverlay.fade-out { opacity: 0; }
